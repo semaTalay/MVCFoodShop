@@ -1,0 +1,195 @@
+﻿@model ShoppingCart
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/css/ShoppingCartDetails.css" asp-append-version="true" />
+<div class="container padding-bottom-3x mb-1">
+    <!-- Alert-->
+    <div class="alert alert-info alert-dismissible fade show text-center bg-warning" style="margin-bottom: 30px;">
+        <i class="fa-solid fa-burger" style="color: #a30505;"></i>
+        <i class="bi bi-star-fill"></i>
+        &nbsp;&nbsp;One last step left to reach <strong>Super Delicious Burger!</strong>
+    </div>
+
+    <!-- Shopping Cart-->
+    <div class="table-responsive shopping-cart">
+        <form>
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Subtotal</th>
+                        <th class="text-center">Discount</th>
+                        <th class="text-center"><a class="btn btn-sm btn-outline-danger" asp-controller="ShoppingCart" asp-action="AllShoppingCarElementRemove">Clear Cart</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ShoppingCartElement shoppingCartElement in Model.ShoppingCartElements)
+                    {
+                        if (shoppingCartElement.Product != null)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="product-item">
+                                        <a class="product-thumb" href="#"><img src="~/ProductImages/@shoppingCartElement.Product.ProductCoverImage" alt="@shoppingCartElement.Product.ProductName"></a>
+                                        <div class="product-info">
+                                            <h4 class="product-title"><a href="#">@shoppingCartElement.Product.ProductName</a></h4>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="count-input">
+                                        <select class="form-control" style="border-color:darkorange">
+                                            <option>@shoppingCartElement.ShoppingCartElementAmount</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td class="text-center text-lg text-medium">@shoppingCartElement.Product.ProductPrice</td>
+                                <td class="text-center text-lg text-medium">-</td>
+                                <td class="text-center">
+                                    <a class="remove-from-cart" asp-action="ShoppingCartElementRemove" asp-controller="ShoppingCart" asp-route-id="@shoppingCartElement.ID">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    <div class="product-item">
+                                        <a class="product-thumb" href="#"><img src="~/MenuImages/@shoppingCartElement.MenuCart.Menu.MenuCoverImage" alt="@shoppingCartElement.MenuCart.Menu.MenuName"></a>
+                                        <div class="product-info">
+                                            <h4 class="product-title"><a href="#">@shoppingCartElement.MenuCart.Menu.MenuName</a></h4>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="count-input">
+                                        <select class="form-control">
+                                            <option>@shoppingCartElement.MenuCart.MenuCartAmount</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td class="text-center text-lg text-medium">@shoppingCartElement.MenuCart.Menu.MenuPrice</td>
+                                <td class="text-center text-lg text-medium">-</td>
+                                <td class="text-center">
+                                    <a class="remove-from-cart" asp-action="ShoppingCartElementRemove" asp-controller="ShoppingCart" asp-route-id="@shoppingCartElement.ID">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="shopping-cart-footer">
+        <div class="column">
+            <form class="coupon-form" method="post">
+                @* <input class="form-control form-control-sm" type="text" placeholder="Coupon code" required="">
+                <button class="btn btn-outline-primary btn-sm" type="submit">Apply Coupon</button>*@
+            </form>
+        </div>
+        <div class="column text-lg">Subtotal: <span class="text-medium">@Model.ShoppingCartPrice </span></div>
+    </div>
+
+
+</div>
+
+
+<script src="~/js/shoppingCartElementDetails.js" asp-append-version="true"></script>
+
+
+<div class="container px-4 py-5 mx-auto" >
+
+
+    <div class="row justify-content-center " >
+        <div class="col-lg-12" >
+            <div class="card" >
+                <div class="row">
+                    <div class="col-lg-3 radio-group">
+                        <a asp-action="ShoppingCartDetails" asp-controller="ShoppingCart" class="text-decoration-none">
+                        <div class="row d-flex px-3 radio">
+                            <img class="pay" src="https://i.imgur.com/WIAP9Ku.jpg">
+                            <p class="my-auto" style="color:black">Credit Card</p>
+                        </div>
+                        <div class="row d-flex px-3 radio" >
+                            <img class="pay" src="https://i.imgur.com/OdxcctP.jpg">
+                                <p class="my-auto" style="color:black">Debit Card</p>
+                        </div>
+                        <div class="row d-flex px-3 radio mb-3 me-2">
+                            <img class="pay" src="https://i.imgur.com/cMk1MtK.jpg">
+                                <p class="my-auto" style=" color:black">PayPal</p>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="row px-2">
+                            <div class="form-group col-md-6">
+                                <label class="form-control-label">Name on Card</label>
+                                <input type="text" id="cname" name="cname" placeholder="Johnny Doe">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-control-label">Card Number</label>
+                                <input type="text" id="cnum" name="cnum" placeholder="1111 2222 3333 4444">
+                            </div>
+                        </div>
+                        <div class="row px-2">
+                            <div class="form-group col-md-6">
+                                <label class="form-control-label">Expiration Date</label>
+                                <input type="text" id="exp" name="exp" placeholder="MM/YYYY">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-control-label">CVV</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="***">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-2">
+                        <div class="row d-flex justify-content-between px-4">
+                            <p class="mb-1 text-left">Subtotal</p>
+                            <h6 class="mb-1 text-right">$@Model.ShoppingCartPrice</h6>
+                        </div>
+                        <div class="row d-flex justify-content-between px-4">
+                            <p class="mb-1 text-left">Shipping</p>
+                            <h6 class="mb-1 text-right">$2.99</h6>
+                        </div>
+                        <div class="row d-flex justify-content-between px-4" id="tax">
+                            <p class="mb-1 text-left">Total (tax included)</p>
+                            @{
+
+                                decimal total = Model.ShoppingCartPrice + Convert.ToDecimal(2.99);
+                            }
+
+                            <h6 class="mb-1 text-right">
+                                $@total
+                            </h6>
+                        </div>
+                        @if (Model.ShoppingCartElements.Count == 0)
+                        {
+                        <button class="btn btn-primary" disabled onclick="ConfirmOrder()">
+                            <span>
+                                <span id="checkout">Checkout </span>
+                                <span id="check-amt">$@total</span>
+                            </span>
+                        </button>                         
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary" onclick="ConfirmOrder()">
+                                <span>
+                                    <span id="checkout">Checkout </span>
+                                    <span id="check-amt">$@total</span>
+                                </span>
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/shoppingCartDetails.js" asp-append-version="true"></script>

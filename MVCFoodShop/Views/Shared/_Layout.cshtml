@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MVCFoodShop</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/shoppingCart.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    @*<link rel="stylesheet" href="~/css/ShoppingCartDetails.css" asp-append-version="true" />*@
+
+    <link rel="stylesheet" href="~/MVCFoodShop.styles.css" asp-append-version="true" />
+</head>
+<body>
+    @* <header  >
+    <nav id="layoutBackGround" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+    <div class="container-fluid">
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" ><img style="width:150px ;height:70px" src="~/ProductImages/logo.png" alt="Burger'ım Sende"/> </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-light" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-light" asp-area="" asp-controller="About" asp-action="Index">About Us</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-light" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
+    </li>
+    </ul>
+    <ul class="navbar-nav flex-grow-1 justify-content-end">
+    <partial name="_LoginPartial" />
+    </ul>
+    </div>
+
+    </div>
+    </nav>
+    </header>*@
+
+    <header>
+        <nav id="layoutBackGround" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img style="width:150px ;height:70px" src="~/ProductImages/logo.png" alt="Burger'ım Sende" /> </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (Context.Request.Path.Value != "/Identity/Account/Register")
+                        {
+                            <li class="nav-item @(Context.Request.RouteValues["action"].ToString() == "Index" && Context.Request.RouteValues["controller"].ToString() == "Home" ? "open" : "")">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item @(Context.Request.RouteValues["action"].ToString() == "Index" && Context.Request.RouteValues["controller"].ToString() == "Product" ? "open" : "")">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
+                            </li>
+                            <li class="nav-item @(Context.Request.RouteValues["action"].ToString() == "Index" && Context.Request.RouteValues["controller"].ToString() == "About" ? "open" : "")">
+                                <a class="nav-link text-light" asp-area="" asp-controller="About" asp-action="Index">About Us</a>
+                            </li>
+                            <li class="nav-item @(Context.Request.RouteValues["action"].ToString() == "Index" && Context.Request.RouteValues["controller"].ToString() == "Contact" ? "open" : "")">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="About" asp-action="Index">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
+                            </li>
+
+                        }
+                    </ul>
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+
+    </div>
+    </nav>
+    </header>
+
+    <div id="body-fluid" class="container ps-0 pe-0">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+        @* For login offcanvas*@
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel"></h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div id="dynamicContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted container-fluid" style="bottom: 0; position: absolute;" id="layoutBackGround">
+        <div class="row primary">
+            <div class="column about">
+                <h3>Connect</h3>
+                <p>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    Caferağa, Mühürdar Cd. No:76, 34710 Kadıköy/İstanbul
+                </p>
+                
+            </div>
+
+            <div class="link " >
+                <div class="d-flex justify-content-center">
+  
+                    <div class="m-1"><a asp-controller="Home" asp-action="index" class="text-decoration-none " style="-webkit-text-fill-color:#bac6d9">Home</a></div>
+                    <div class="m-1"><a asp-controller="Product" asp-action="index" class="text-decoration-none " style="-webkit-text-fill-color:#bac6d9">Product</a></div>
+                    <div class="m-1"><a asp-controller="About" asp-action="index" class="text-decoration-none " style="-webkit-text-fill-color:#bac6d9">About Us</a></div>
+                    <div class="m-1"><a asp-controller="Contact" asp-action="index" class="text-decoration-none " style="-webkit-text-fill-color:#bac6d9">Contact</a></div>
+                </div>
+            </div>
+
+
+            <div class="social w-25">
+                <a href="https://github.com/" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="https://www.linkedin.com/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                <a href="https://www.instagram.com/" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="https://twitter.com/" target="_blank"><i class="bi bi-twitter"></i></a>
+
+            </div>
+        </div>
+
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/profile.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/shoppingCartDetails.js" asp-append-version="true"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

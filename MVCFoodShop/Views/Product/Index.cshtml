@@ -1,0 +1,232 @@
+﻿@using Newtonsoft.Json;
+@model ProductList_VM
+<link rel="stylesheet" href="~/css/Product.css" asp-append-version="true" />
+<script src="~/js/Products.js" asp-append-version="true"></script>
+
+<section class="food_section layout_padding-bottom">
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2 class="text-center" id="ourProductsTitle">
+                <strong>Our Products</strong>
+            </h2>
+        </div>
+        @if (ViewBag.Role == "Admin")
+        {
+
+            @* New product*@
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                Add New Product
+            </button>
+
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalCenterTitle"><strong>Add New Product</strong></h1>
+                            <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="px-5">
+                            <form asp-action="List" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+
+                                    <label for="ProductCoverImage">Product Image</label>
+                                    <div id="SelectedImageContainer"></div>
+                                    <input type="file" asp-for="ProductCoverImage" id="ProductCoverImageInput" name="ImageName" pattern="" accept=".jpg, .jpeg, .png" required />
+                                    <label for="ProductName">Product Name</label>
+                                    <input type="text" placeholder="Product Name" asp-for="ProductName" required />
+                                    <label for="ProductPrice">Price</label>
+                                    <input type="number" placeholder="Price" asp-for="ProductPrice" value="10" min="1" />
+                                    <label for="ProductCategory">Product Category</label>
+                                    <select asp-for="CategoryID" asp-items="Model.CategoriesComboBox" class="my-3">
+                                       @* <option value="0">Select Category...</option>*@
+                                    </select>
+                                    <label for="ProductDeclaration">Product Declaration</label>
+                                    <input type="text" placeholder="Product Declaration" asp-for="ProductDeclaration" maxlength="220" required />
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                    @*<button class=" border-0 bg-white w-25">*@
+                                    <input type="submit" class="btn btn-success text-white w-25" value="Confirm" />
+                                    @*</button>*@
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            @* New Menu*@
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalCenter2">
+                Add New Menu
+            </button>
+
+            <div class="modal fade" id="exampleModalCenter2" tabindex="-1" aria-labelledby="exampleModalCenterTitle2" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalCenterTitle2">Add New Menu</h1>
+                            <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="px-5">
+                            <form asp-action="List" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div>
+                                        <label for="MenuCoverImage">Menu Image</label>
+                                        <div id="SelectedMenuImageContainer"></div>
+                                        <input type="file" asp-for="MenuCoverImage" id="MenuCoverImageInput" name="ImageName" pattern="" accept=".jpg, .jpeg, .png" required />
+                                        <label for="MenuName">Menu Name </label>
+                                        <input type="text" placeholder="Menu Name" asp-for="MenuName" required />
+                                        <label for="MenuPrice">Menu Price</label>
+                                        <input type="number" asp-for="MenuPrice" value="50" min="1" />
+                                        <h1>Menu Products</h1>
+                                        <hr>
+
+                                        @*                                    <select multiple name="menuProductList">
+
+                                    @foreach (var product in Model.Products)
+                                    {
+                                    <option value="@product.ID" >@product.ProductName</option>
+                                    }
+                                    </select>*@
+
+                                        @*<div class="btn-group w-100 h-50 bg-white flex-wrap border d-flex align-items-center justify-content-center" style="height: 100px;" role="group" aria-label="Basic checkbox toggle button group">
+                                    @{
+                                    int count = 0;
+                                    }
+                                    @foreach (var product in Model.Products)
+                                    {
+                                    count++;
+                                    string btnid = "btncheck" + count;
+                                    <input type="checkbox" class="btn-check h-50" id="@btnid" name="selectedProducts" value="@product.ID" autocomplete="off">
+                                    <label class="btn btn-outline-warning m-2 text-center w-25" for="@btnid" style="width: 100%;">@product.ProductName</label>
+                                    }
+                                    </div>*@
+
+                                        @{
+                                            int count = 0;
+                                        }
+                                        <h4>Foods</h4>
+                                        <div class="btn-group w-100 h-50 bg-white flex-wrap border d-flex align-items-center justify-content-center" style="height: 100px;" role="group" aria-label="Basic checkbox toggle button group">
+                                            @foreach (var food in Model.FoodList)
+                                            {
+                                                count++;
+                                                string btnid = "btncheck" + count;
+                                                <input type="checkbox" class="btn-check h-50" id="@btnid" name="selectedProducts" value="@food.ID" autocomplete="off">
+                                                <label class="btn btn-outline-warning m-2 text-center w-25" for="@btnid" style="width: 100%;">@food.ProductName</label>
+                                            }
+                                        </div>
+
+                                        <h4>Beverages</h4>
+                                        <div class="btn-group w-100 h-50 bg-white flex-wrap border d-flex align-items-center justify-content-center" style="height: 100px;" role="group" aria-label="Basic checkbox toggle button group">
+                                            @foreach (var beverage in Model.BeverageList)
+                                            {
+                                                count++;
+                                                string btnid = "btncheck" + count;
+
+                                                <input type="checkbox" class="btn-check h-50" id="@btnid" name="selectedProducts" value="@beverage.ID" autocomplete="off">
+                                                <label class="btn btn-outline-warning m-2 text-center w-25" for="@btnid" style="width: 100%;">@beverage.ProductName</label>
+                                            }
+                                        </div>
+
+                                        <h4>Sauces</h4>
+                                        <div class="btn-group w-100 h-50 bg-white flex-wrap border d-flex align-items-center justify-content-center" style="height: 100px;" role="group" aria-label="Basic checkbox toggle button group">
+                                            @foreach (var sauce in Model.SauceList)
+                                            {
+                                                count++;
+                                                string btnid = "btncheck" + count;
+
+                                                <input type="checkbox" class="btn-check h-50" id="@btnid" name="selectedProducts" value="@sauce.ID" autocomplete="off">
+                                                <label class="btn btn-outline-warning m-2 text-center w-25" for="@btnid" style="width: 100%;">@sauce.ProductName</label>
+                                            }
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+
+                                    <label for="FoodCount">Food Count</label>
+                                    <input type="number" asp-for="FoodCount" value="1" min="1" />
+                                    <label for="BeverageCount">Beverage Count</label>
+                                    <input type="number" asp-for="BeverageCount" value="1" min="1" />
+                                    <label for="SauceCount">Sauce Count</label>
+                                    <input type="number" asp-for="SauceCount" value="1" min="1" />
+                                    <label for="MenuDeclaration">Menu Declaration</label>
+                                    <input type="text" placeholder="Menu Declaration" asp-for="MenuDeclaration" maxlength="220" required />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                    @* <button class=" border-0 bg-white">*@
+                                    <input type="submit" class="btn btn-success text-white w-25" value="Confirm" />
+                                    @*</button>*@
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <ul class="filters_menu">
+            <li id="all" class="active" onclick="GetProductList(this)">All</li>
+            <li id="menu" class="active" onclick="GetProductList(this,'Menu')">Menu</li>
+            @foreach (var category in Model.Categories)
+            {
+                <li onclick="GetProductList(this,'@category.CategoryName')">@category.CategoryName</li>
+            }
+        </ul>
+        @*Product List*@
+        <div id="productList"></div>
+
+        @*
+        <div class="btn-box">
+        <a href="">
+        View More
+        </a>
+        </div>
+        *@
+    </div>
+</section>
+
+<script>
+
+    document.getElementById("ProductCoverImageInput").addEventListener("change", function () {
+        var fileInput = this;
+        var selectedImageContainer = document.getElementById("SelectedImageContainer");
+        selectedImageContainer.innerHTML = ""; // Önceki resmi temizle
+
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = document.createElement("img");
+                img.src = e.target.result;
+                selectedImageContainer.appendChild(img);
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    });
+
+
+    document.getElementById("MenuCoverImageInput").addEventListener("change", function () {
+        var fileInput = this;
+        var selectedImageContainer = document.getElementById("SelectedMenuImageContainer");
+        selectedImageContainer.innerHTML = ""; // Önceki resmi temizle
+
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = document.createElement("img");
+                img.src = e.target.result;
+                selectedImageContainer.appendChild(img);
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    });
+
+
+
+</script>

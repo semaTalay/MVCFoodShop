@@ -1,0 +1,65 @@
+﻿@model ShoppingCart_VM
+
+<div class="cart-hover">
+    <div class="select-items">
+        <table>
+            <tbody>
+                    @foreach (ShoppingCartElement shoppingCartElement in Model.ShoppingCart.ShoppingCartElements)
+                    {
+                        @if (shoppingCartElement.Product != null)
+                        {
+                            <tr>
+                            <td class="si-pic d-flex justify-content-center"><img style="border: none !important;" width="80" src="ProductImages/@shoppingCartElement.Product.ProductCoverImage" alt="@shoppingCartElement.Product.ProductName"></td>
+                                <td class="si-text">
+                                    <div class="product-selected">
+                                    <b><p style="font-size:x-large; color:#222831">@shoppingCartElement.Product.ProductName</p></b>
+                                    <p>$@shoppingCartElement.Product.ProductPrice  <a style="color:#222831">x @shoppingCartElement.ShoppingCartElementAmount = </a>  $@shoppingCartElement.ShoppingCartElementPrice</p>
+                                        <h6></h6>
+                                    </div>
+                                </td>
+                                <td class="si-close">
+                                    <i class="ti-close"></i>
+                                </td>
+                            </tr>
+                        }
+                        else if (shoppingCartElement.MenuCart != null)
+                        {
+                            <tr>
+                            <td class="si-pic d-flex justify-content-center"><img style="border: none !important;" width="80" src="MenuImages/@shoppingCartElement.MenuCart.Menu.MenuCoverImage" alt="@shoppingCartElement.MenuCart.Menu.MenuName"></td>
+                                <td class="si-text">
+                                    <div class="product-selected">
+                                    <b><p style="font-size:x-large; color:#222831">@shoppingCartElement.MenuCart.Menu.MenuName</p></b>
+                                    <div class="p-3" style="background-color: #f7f7e4;">
+                                            @foreach (var menuCartElement in shoppingCartElement.MenuCart.MenuCartElements)
+                                            {
+                                            <p class="pl-2"> @menuCartElement.Product.ProductName <a style="color:#222831"> x 1 </a></p>
+                                            }
+                                        <p style="color:#222831" class="pl-2">Menu Size = @shoppingCartElement.MenuCart.MenuType.ToString()</p>
+                                        </div>
+                                    @{
+                                        decimal menuSizePrice = (decimal)shoppingCartElement.MenuCart.MenuType;
+                                        decimal netPrice = shoppingCartElement.MenuCart.Menu.MenuPrice + menuSizePrice;                
+                                    }
+                                    <p>$@netPrice <a style="color:#222831"> x @shoppingCartElement.ShoppingCartElementAmount = </a>  $@shoppingCartElement.ShoppingCartElementPrice</p>
+                                        <h6></h6>
+                                    </div>
+                                </td>
+                                <td class="si-close">
+                                    <i class="ti-close"></i>
+                                </td>
+                            </tr>
+                        }
+                    }
+            </tbody>
+        </table>
+    </div>
+    <div class="select-total">
+        <b><span style="font-size:large; color:#222831">total:</span></b>
+        <h5 style="color:#222831">$@Model.ShoppingCart.ShoppingCartPrice</h5>
+    </div>
+    <div class="select-button d-flex justify-content-center">
+        <a asp-controller="ShoppingCart" asp-action="ShoppingCartDetails" class="btn btn-warning w-75 " >VIEW CARD</a>
+    </div>
+</div>
+
+                                    

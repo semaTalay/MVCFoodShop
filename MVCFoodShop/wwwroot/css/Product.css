@@ -1,0 +1,293 @@
+﻿.food_section .filters_menu {
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    list-style-type: none;
+    margin: 45px 0 20px 0;
+}
+
+    .food_section .filters_menu li {
+        padding: 7px 25px;
+        cursor: pointer;
+        border-radius: 25px;
+    }
+
+        .food_section .filters_menu li.active {
+            background-color: #222831;
+            color: #ffffff;
+        }
+
+.food_section .box {
+    position: relative;
+    margin-top: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    color: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
+}
+
+    .food_section .box .img-box {
+        background: #f1f2f3;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 215px;
+        border-radius: 0 0 0 45px;
+        margin: -1px;
+        padding: 25px;
+    }
+
+        .food_section .box .img-box img {
+            max-width: 100%;
+            max-height: 145px;
+            -webkit-transition: all .2s;
+            transition: all .2s;
+        }
+
+    .food_section .box .detail-box {
+        padding: 25px;
+    }
+
+        .food_section .box .detail-box h5 {
+            font-weight: 600;
+        }
+
+        .food_section .box .detail-box p {
+            font-size: 15px;
+        }
+
+        .food_section .box .detail-box h6 {
+            margin-top: 10px;
+        }
+
+    .food_section .box .options {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+    }
+
+        .food_section .box .options a {
+            width: 70px;
+            height: 70px;
+            border-radius: 100%;
+           /* background: #ffbe33;*/
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            margin-left: 15px;
+            font-weight:bold;
+
+        }
+
+            .food_section .box .options a svg {
+                width: 18px;
+                height: auto;
+                fill: #ffffff;
+            }
+
+    .food_section .box:hover .img-box img {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+
+.food_section .btn-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 45px;
+}
+
+    .food_section .btn-box a {
+        display: inline-block;
+        padding: 10px 55px;
+        background-color: #ffbe33;
+        color: #ffffff;
+        border-radius: 45px;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        border: none;
+    }
+
+        .food_section .btn-box a:hover {
+            background-color: #e69c00;
+        }
+
+div.img-box {
+    color: black;
+}
+
+
+/*Modal Forms*/
+select {
+    width: 100%;
+    background-color: #FFC107;
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    border-radius: 5px;
+    border: 2px solid black;
+    color: #ffffff;
+    padding: 10px 30px 10px 10px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    font-weight: bold;
+}
+/*form label {
+    font-weight: bold;
+}
+
+form input {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid #FFC107;
+    border-radius: 5px;
+    background-color: white;
+}
+
+    form input:focus {
+        border: 2px solid #FFC107;
+        border-radius: 5px;
+    }*/
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+form input
+/*form select*/ {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 2px solid #FFC107;
+    border-radius: 5px;
+    background-color: white;
+}
+    
+    form input:focus,
+    form select:focus {
+        outline: none;
+        border: 2px solid #FFC107;
+        border-radius: 5px;
+    }
+
+.ProductUpdateForm label {
+    display: block;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.ProductUpdateForm input,
+.ProductUpdateForm select {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 2px solid #FFC107;
+    border-radius: 5px;
+    background-color: white;
+}
+
+    .ProductUpdateForm input:focus,
+    .ProductUpdateForm select:focus {
+        outline: none;
+        border: 2px solid #FFC107;
+        border-radius: 5px;
+    }
+
+/*.modal-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .modal-footer button {
+        width: 100%;
+        margin-top: 10px;
+    }*/
+
+    
+option {
+    background-color: #ffffff;
+    color: black;
+    font-weight: bold;
+}
+
+    option:hover {
+        background-color: #FFC107;
+    }
+
+#SelectedImageContainer {
+    margin-top: 10px; /* İstenilen boşluk ayarını yapabilirsiniz */
+    text-align: center; /* Resmi yatay olarak ortalar */
+    width: 100%; /* Yapının genişliği */
+    height: 150px; /* Yapının yüksekliği */
+    overflow: hidden; /* Taşan içeriği gizler */
+}
+
+    #SelectedImageContainer img {
+        max-width: 100%; /* Resmin maksimum genişliği */
+        max-height: 100%; /* Resmin maksimum yüksekliği */
+        object-fit: contain; /* Resmi sıkıştırır ve oranlarını korur */
+    }
+
+#SelectedMenuImageContainer {
+    margin-top: 10px; /* İstenilen boşluk ayarını yapabilirsiniz */
+    text-align: center; /* Resmi yatay olarak ortalar */
+    width: 100%; /* Yapının genişliği */
+    height: 150px; /* Yapının yüksekliği */
+    overflow: hidden; /* Taşan içeriği gizler */
+}
+
+    #SelectedMenuImageContainer img {
+        max-width: 100%; /* Resmin maksimum genişliği */
+        max-height: 100%; /* Resmin maksimum yüksekliği */
+        object-fit: contain; /* Resmi sıkıştırır ve oranlarını korur */
+    }
+
+.btn-group {
+    max-height: 150px; /* İstediğiniz maksimum yükseklik */
+    overflow-y: auto; /* Yatay scrollbar'ı görüntüler */
+}
+
+
+.box {
+    /* Öğelerin genişliği */
+    height: 510px; /* Öğelerin yüksekliği */
+    position: relative;
+}
+
+    .box .options {
+        position: absolute;
+        bottom: 20px;
+        /* Diğer stillendirme özelliklerini burada belirleyebilirsiniz */
+    }
